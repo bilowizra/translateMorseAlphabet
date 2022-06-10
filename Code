@@ -1,0 +1,340 @@
+#include <wiringPi.h> 
+#include <stdio.h>
+#include <sys/time.h>
+#include <string.h>
+
+#define BuzzerPin 0 
+#define LightPin 15
+
+
+void ultraInit(void) {
+    pinMode(BuzzerPin,OUTPUT);
+    pinMode(LightPin,OUTPUT);
+}
+
+void dash(void) {
+      // Dash delay 800ms
+      digitalWrite(BuzzerPin,HIGH);
+      //Işık sönmiyor burayı high dan low yaptım.
+      digitalWrite(LightPin,LOW);
+      delay(400);
+      digitalWrite(BuzzerPin,LOW);
+      //Işık sönmiyor burayı low dan high yaptım.
+      digitalWrite(LightPin,HIGH);
+      delay(350);
+      
+      
+      
+}
+
+void dot(void) {
+      // Dot delay 350ms
+      digitalWrite(BuzzerPin,HIGH);
+      //Işık sönmiyor burayı high dan low yaptım.
+      digitalWrite(LightPin,LOW);
+      delay(175);
+      digitalWrite(BuzzerPin,LOW);
+      //Işık sönmiyor burayı low dan high yaptım.
+      digitalWrite(LightPin,HIGH);
+      delay(350);
+}
+
+
+void mail(){
+    system("echo \"Subject: Telegraf Morse Alphabet.\r\n\r\nNachricht wurde Empfangen.\" |msmtp --debug --from=default -t talhabilal632@gmail.com");  
+    
+}
+
+
+
+void morseAlphabet(char word[]) {
+      // Die Buchstaben werden von A-Z als Morse-Code ausgeben.
+      
+      for(int i = 0; i < strlen(word); i++) {
+            
+            switch (word[i]){
+                  case 'A':
+                  dot();
+                  dash();
+                  break;
+
+                  case 'B':
+                  dash();
+                  dot();
+                  dot();
+                  dot();
+                  break;
+
+                  case 'C':
+                  dash();
+                  dot();
+                  dash();
+                  dot();
+                  break;
+
+                  case 'D':
+                  dash();
+                  dot();
+                  dot();
+                  break;
+
+                  case 'E':
+                  dot();
+                  break;
+
+                  case 'F':
+                  dot();
+                  dot();
+                  dash();
+                  dot();
+                  break;
+
+                  case 'G':
+                  dash();
+                  dash();
+                  dot();
+                  break;
+
+                  case 'H':
+                  dot();
+                  dot();
+                  dot();
+                  dot();
+                  break;
+
+                  case 'I':
+                  dot();
+                  dot();
+                  break;
+
+                  case 'J':
+                  dot();
+                  dash();
+                  dash();
+                  dash();
+                  break;
+
+                  case 'K':
+                  dash();
+                  dot();
+                  dash();
+                  break;
+
+                  case 'L':
+                  dot();
+                  dash();
+                  dot();
+                  dot();
+                  break;
+
+                  case 'M':
+                  dash();
+                  dash();
+                  break;
+
+                  case 'N':
+                  dash();
+                  dot();
+                  break;
+
+                  case 'O':
+                  dash();
+                  dash();
+                  dash();
+                  break;
+
+                  case 'P':
+                  dot();
+                  dash();
+                  dash();
+                  dot();
+                  break;
+
+                  case 'Q':
+                  dash();
+                  dash();
+                  dot();
+                  dash();
+                  break;
+
+                  case 'R':
+                  dot();
+                  dash();
+                  dot();
+                  break;
+
+                  case 'S':
+                  dot();
+                  dot();
+                  dot();
+                  break;
+
+                  case 'T':
+                  dash();
+                  break;
+
+                  case 'U':
+                  dot();
+                  dot();
+                  dash();
+                  break;
+
+                  case 'V':
+                  dot();
+                  dot();
+                  dot();
+                  dash();
+                  break;
+
+                  case 'W':
+                  dot();
+                  dash();
+                  dash();
+                  break;
+
+                  case 'X':
+                  dash();
+                  dot();
+                  dot();
+                  dash();
+                  break;
+
+                  case 'Y':
+                  dash();
+                  dot();
+                  dash();
+                  dash();
+                  break;
+
+                  case 'Z':
+                  dash();
+                  dash();
+                  dot();
+                  dot();
+                  break;
+                  
+                  case '1':
+                  dot();
+                  dash();
+                  dash();
+                  dash();
+                  dash();
+                  break;
+                  
+                  case '2':
+                  dot();
+                  dot();
+                  dash();
+                  dash();
+                  dash();
+                  break;
+                  
+                  case '3':
+                  dot();
+                  dot();
+                  dot();
+                  dash();
+                  dash();
+                  break;
+                  
+                  case '4':
+                  dot();
+                  dot();
+                  dot();
+                  dot();
+                  dash();
+                  break;
+                  
+                  case '5':
+                  dot();
+                  dot();
+                  dot();
+                  dot();
+                  dot();
+                  break;
+                  
+                  case '6':
+                  dash();
+                  dot();
+                  dot();
+                  dot();
+                  dot();
+                  break;
+                  
+                  case '7':
+                  dash();
+                  dash();
+                  dot();
+                  dot();
+                  dot();
+                  break;
+                  
+                  case '8':
+                  dash();
+                  dash();
+                  dash();
+                  dot();
+                  dot();
+                  break;
+                  
+                  case '9':
+                  dash();
+                  dash();
+                  dash();
+                  dash();
+                  dot();
+                  break;
+                  
+                  case '0':
+                  dash();
+                  dash();
+                  dash();
+                  dash();
+                  dash();
+                  break;
+            
+            }
+            
+            // nach jeder Buchstabe wird 500ms gewartet.
+            delay(500);
+           
+      }
+}
+
+int main() {
+      
+      wiringPiSetup();
+      if(wiringPiSetup() == -1) {                
+            printf("Setup WiringPi failed!");
+            return 1;
+      }
+      ultraInit();
+      
+      
+      // Erhaltung der Nachricht
+      char str[100];
+      Message:
+      printf("Geben Sie bitte ihre Nachricht ein.\n");
+      scanf("%[^\n]%*c", str);
+      
+      // Wenn die Nachricht Kleinbuchstaben erhaltet
+      // werden diese in Großbuchstaben umgewandelt mit Hilfe 
+      // des ASCII-Codes
+      for(int i = 0; i < strlen(str); i++){
+
+            if ((str[i] >= 'a') && (str[i] <= 'z') ) {
+                  str[i] -= 32;
+            } else if ((str[i] >= '!') && (str[i] <= '/') || ((str[i] >= ':') && (str[i] <= '@'))  || ((str[i] >= '{') && (str[i] <= '~'))) {
+                  printf("Geben Sie nur Buchstaben und Zahlen ein!\n");
+                  goto Message;
+            } 
+      } 
+      morseAlphabet(str);
+      digitalWrite(LightPin,LOW);
+      
+      mail();
+      //printf("Die Nachricht wurde erfolgreich übertragen!\n");
+      
+      return 0;
+}
+
